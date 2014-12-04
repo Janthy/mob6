@@ -1,0 +1,142 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<title>Infesto</title>
+
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/jquery.mobile-1.4.5.min.js"></script>
+
+<link rel="stylesheet" href="css/themes/infesto.css" />
+<link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
+<link rel="stylesheet" href="css/themes/jquery.mobile.structure-1.4.5.css" />
+<link href="css/style.css" rel="stylesheet">
+
+</head> 
+<body> 
+
+<!-- start pagina -->
+		<section data-role="page" id="start" >
+			<nav data-role="navbar">
+				<ul>
+					<li><a href="#zoeken"  data-icon="home">Zoeken</a></li>
+					<li><a href="#infestomap"   data-icon="minus">Infesto</a></li>
+					<li><a href="#instellingen"  data-icon="alert">Instellingen</a></li>
+				</ul>
+        </nav>
+		
+
+		
+		</section>
+        
+        <!-- Zoeken pagina -->
+		<section data-role="page" id="zoeken" data-theme="a">
+			<nav data-role="navbar" style="border-bottom:5px solid #fdce5a;">
+				<ul>
+					<li><a href="#zoeken" style="background:#fdce5a; color: white; border-color:#fdce5a;" data-icon="search">Zoeken</a></li>
+					<li><a href="#infestomap" style="background:#00afda; color: white; border-color:#00afda;" data-icon="location">Infesto</a></li>
+					<li><a href="#instellingen" style="background:#7e7e7e; color: white; border-color:#7e7e7e;"  data-icon="gear">Instellingen</a></li>
+				</ul>
+        </nav>
+		<div class="headerstyle" data-role="header" style="overflow:hidden;">
+        	<h1>Zoeken</h1>
+        </div>
+
+		
+		</section>
+        
+        <!-- infestomap pagina -->
+		<section data-role="page" id="infestomap" data-theme="a">
+			<nav data-role="navbar" style="border-bottom:5px solid #00afda;">
+				<ul>
+					<li><a href="#zoeken" style="background:#fdce5a; color: white; border-color:#fdce5a;" data-icon="search">Zoeken</a></li>
+					<li><a href="#infestomap" style="background:#00afda; color: white; border-color:#00afda;" data-icon="location">Infesto</a></li>
+					<li><a href="#instellingen" style="background:#7e7e7e; color: white; border-color:#7e7e7e;"  data-icon="gear">Instellingen</a></li>
+				</ul>
+        </nav>
+
+		
+		</section>
+        
+        <!-- instellingen pagina -->
+		<section data-role="page" id="instellingen" data-theme="a">
+			<nav data-role="navbar" style="border-bottom:5px solid #7e7e7e;">
+				<ul>
+					<li><a href="#zoeken" style="background:#fdce5a; color: white; border-color:#fdce5a;" data-icon="search">Zoeken</a></li>
+					<li><a href="#infestomap" style="background:#00afda; color: white; border-color:#00afda;" data-icon="location">Infesto</a></li>
+					<li><a href="#instellingen" style="background:#7e7e7e; color: white; border-color:#7e7e7e;"  data-icon="gear">Instellingen</a></li>
+				</ul>
+        </nav>
+		<div class="headerstyle" data-role="header" style="overflow:hidden;">
+        	<h1>Instellingen</h1>
+        </div>
+		<a href="#fbaccount" class="ui-btn">Facebook account</a>
+        <a href="#meldingen" class="ui-btn">Meldingen</a>
+        <a href="#provincie" class="ui-btn">Provincie</a>
+        
+		
+		</section>
+        
+        <!-- instellingen facebook account pagina -->
+		<section data-role="page" id="fbaccount" data-theme="a">
+			<nav data-role="navbar" style="border-bottom:5px solid #7e7e7e;">
+				<ul>
+					<li><a href="#zoeken" style="background:#fdce5a; color: white; border-color:#fdce5a;" data-icon="search">Zoeken</a></li>
+					<li><a href="#infestomap" style="background:#00afda; color: white; border-color:#00afda;" data-icon="location">Infesto</a></li>
+					<li><a href="#instellingen" style="background:#7e7e7e; color: white; border-color:#7e7e7e;"  data-icon="gear">Instellingen</a></li>
+				</ul>
+       		</nav>
+            <div class="headerstyle" data-role="header" style="overflow:hidden;">
+        		<h1>Facebook Account</h1>
+            	<a href="#instellingen" class="ui-btn ui-icon-carat-l ui-btn-icon-notext ui-corner-all">No text</a>
+       		</div>
+			
+		
+        
+		
+		</section>
+        
+        <!-- instellingen meldingen pagina -->
+		<section data-role="page" id="meldingen" data-theme="a">
+			<nav data-role="navbar" style="border-bottom:5px solid #7e7e7e;">
+				<ul>
+					<li><a href="#zoeken" style="background:#fdce5a; color: white; border-color:#fdce5a;" data-icon="search">Zoeken</a></li>
+					<li><a href="#infestomap" style="background:#00afda; color: white; border-color:#00afda;" data-icon="location">Infesto</a></li>
+					<li><a href="#instellingen" style="background:#7e7e7e; color: white; border-color:#7e7e7e;"  data-icon="gear">Instellingen</a></li>
+				</ul>
+        	</nav>
+            <div class="headerstyle" data-role="header" style="overflow:hidden;">
+        		<h1>Meldingen</h1>
+            	<a href="#instellingen" class="ui-btn ui-icon-carat-l ui-btn-icon-notext ui-corner-all">No text</a>
+        	</div>
+			
+		
+        
+		
+		</section>
+        
+        <!-- instellingen provincie pagina -->
+		<section data-role="page" id="provincie" data-theme="a">
+			<nav data-role="navbar" style="border-bottom:5px solid #7e7e7e;">
+				<ul>
+					<li><a href="#zoeken" style="background:#fdce5a; color: white; border-color:#fdce5a;" data-icon="search">Zoeken</a></li>
+					<li><a href="#infestomap" style="background:#00afda; color: white; border-color:#00afda;" data-icon="location">Infesto</a></li>
+					<li><a href="#instellingen" style="background:#7e7e7e; color: white; border-color:#7e7e7e;"  data-icon="gear">Instellingen</a></li>
+				</ul>
+            </nav>
+            <div class="headerstyle" data-role="header" style="overflow:hidden;">
+        		<h1>Provincie</h1>
+            	<a href="#instellingen" class="ui-btn ui-icon-carat-l ui-btn-icon-notext ui-corner-all">No text</a>
+        	</div>
+			
+		
+        
+		
+		</section>
+
+
+
+
+</body>
+</html>
