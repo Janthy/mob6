@@ -10,6 +10,10 @@
 Festival vinder app.
 </description>
 
+<icon src="images/icon.png" />
+
+<access origin="*" /> 
+
 <preference name="orientation" value="portrait" />
 
 <plugin name="Media" value="org.apache.cordova.AudioHandler" />

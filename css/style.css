@@ -11,8 +11,68 @@
 body{
  font-family: 'Open Sans', sans-serif;	
 }
+html { height: 100% }
+  body section{ height: 100%; margin: 0; padding: 0 }
+  #infestomap { height: 100% }
 
 h1{
  font: 300 45px/0.5 'Open Sans', sans-serif;
  font-size: 2em;	
+}
+
+#infestomap{
+ 	padding: 0;
+    position : absolute !important; 
+    top : 0px !important;  
+    right : 0; 
+    bottom : 0px !important;  
+    left : 0 !important;	
+}
+ #googleMap {
+        height: 100%;
+		position:relative;
+      }
+
+.ui-dialog {
+	min-height: 100% !important;
+	background: transparent !important;
+}
+
+.ui-dialog-background {
+	opacity: 0.5;
+	display: block !important;
+	-webkit-transition: opacity 0.5s ease-in;
+}
+
+.ui-dialog-background.pop.in {
+	opacity: 1;
+	-webkit-transition: opacity 0.5s ease-in;
+}
+
+.thumblayout{
+	border:0px #333 solid; 
+	width:239px;
+	height: 144px;
+	-webkit-box-shadow: 0 8px 6px -6px black;
+	   -moz-box-shadow: 0 8px 6px -6px black;
+	        box-shadow: 0 8px 6px -6px black;	
+}
+
+.festivalheader{
+	background-color:#ea6449 !important;
+	color:#fff !important;
+	text-shadow:0 /*{a-bar-shadow-x}*/ 1px /*{a-bar-shadow-y}*/ 0 /*{a-bar-shadow-radius}*/ #333 /*{a-bar-shadow-color}*/ !important;
+
+}
+
+.labels {
+   color: red;
+   background-color: white;
+   font-family: "Lucida Grande", "Arial", sans-serif;
+   font-size: 10px;
+   font-weight: bold;
+   text-align: center;
+   width: 60px;     
+   border: 2px solid black;
+   white-space: nowrap;
 }
