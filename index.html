@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <title>Infesto</title>
 
 <script src="js/jquery-1.11.1.min.js"></script>
@@ -19,41 +19,70 @@
     
 	<!-- google map functie en eigenschappen  -->
 	<script>
-      function initialize() {
-        var mapCanvas = document.getElementById('googleMap');
-        var mapOptions = {
-          center: new google.maps.LatLng(51.556574, 5.138129),
-          zoom: 9,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        }
-        var map = new google.maps.Map(mapCanvas, mapOptions)
 		
-		var myLocation01=new google.maps.LatLng(51.435899, 5.484924);//Onomatopee
-		var marker01=new google.maps.Marker({
-			  position:myLocation01,
-			  icon:'images/punt_final3.png', 	// custom icon toevoegen.
-			  url:'#infolocation01'			// link naar de dialog pagina
-			  });
-			  
-	    $.mobile.defaultPageTransition = 'fade';
-		
-		//marker toevoegen aan de googlemap-------------------------------------------------------------------	  
-		marker01.setMap(map);
-		//klik events per marker------------------------------------------------------------------------------
+ 
+		function initialize() {
+		 
+			var mapOptions = {
+				  zoom: 9,
+				  center: new google.maps.LatLng(51.556574, 5.138129),
+				  mapTypeId: google.maps.MapTypeId.ROADMAP
+			}
+			 
+			map = new google.maps.Map(document.getElementById("googleMap"), mapOptions);
+			 
+			makeRequest('get_locations.php', function(data) {
+					 
+				var data = JSON.parse(data.responseText);
+				 
+				for (var i = 0; i < data.length; i++) {
+					displayLocation(data[i]);
+				}
+			});
+		}
 
-		google.maps.event.addListener(marker01, 'click', function() {
-      	window.location.href = marker01.url;
-	 	 marker01.setIcon('images/punt3_final.png');
+	  
+		  <!-- functie initialize uitvoeren als de infesto pagina weergegeven word-->
+		  $(document).on('pageshow', '#infestomap', function (event) {
+			initialize();
+		  });
 	 
-	  
-});	  
+		 function displayLocation(location) {
+			 
+
+		 
 		
-      }
-      <!-- functie initialize uitvoeren als de infesto pagina weergegeven word-->
-	  $(document).on('pageshow', '#infestomap', function (event) {
-	  	initialize();
-	  });
-	  
+		
+			var position = new google.maps.LatLng(parseFloat(location.lat), parseFloat(location.lon));
+			var marker = new google.maps.Marker({
+				map: map, 
+				position: position,
+				title: location.name,
+				icon:('images/'+ location.name +'.png'),
+				url:('#'+ location.name)
+			});
+			 
+			google.maps.event.addListener(marker, 'click', function() {
+				window.location.href = marker.url;
+			});
+		
+		}
+	 
+		 function makeRequest(url, callback) {
+			var request;
+			if (window.XMLHttpRequest) {
+				request = new XMLHttpRequest(); // IE7+, Firefox, Chrome, Opera, Safari
+			} else {
+				request = new ActiveXObject("Microsoft.XMLHTTP"); // IE6, IE5
+			}
+			request.onreadystatechange = function() {
+				if (request.readyState == 4 && request.status == 200) {
+					callback(request);
+				}
+			}
+			request.open("GET", url, true);
+			request.send();
+		 }
     </script>
 </head> 
 <body> 
@@ -180,7 +209,7 @@
 		<!-- -------------------------------------------------- info schermen------------------------------------------------------------- -->	
 		<!-- Info dialogs van de marker01 -->
 		
-		<div id="infolocation01" data-role="dialog">
+		<div id="definitie van hiphop" data-role="dialog">
         		<div class="festivalheader" data-role="header">
          	  		<h1>Definitie van HipHop</h1>
         		</div>
@@ -189,11 +218,41 @@
 				
                 <iframe src="http://player.vimeo.com/video/41135183" width="100%" height="200" seamless></iframe>
 
-		 		<h2> Test </h2>
+		 		<h2> GLOW CAFE </h2>
         			<p class="leftalign">
-                    		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-				Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure 
-				dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                    Hét meeting point voor kunstenaars, publiek en pers.
+                    Geopend vanaf 18.00 uur.
+                    In het GLOW Café, het GLOW-S Café en op diverse
+                    infopunten langs de route is gelegenheid voor een hapje en
+                    een drankje. Koop hier je GLOW souvenir!
+                    Het GLOW Café wordt uitgebaat door Van Nielen Events
+                    info@vannielenevents.nl
+				</p>
+				
+				
+        		</div>
+        	</div>
+         
+         <!-- Info dialogs van de marker01 -->
+		
+		<div id="test" data-role="dialog">
+        		<div class="festivalheader" data-role="header">
+         	  		<h1>test</h1>
+        		</div>
+        		<div class="break-words" data-role="content" data-theme="a">
+
+				
+                <iframe src="http://player.vimeo.com/video/41135183" width="100%" height="200" seamless></iframe>
+
+		 		<h2> GLOW CAFE </h2>
+        			<p class="leftalign">
+                    Hét meeting point voor kunstenaars, publiek en pers.
+                    Geopend vanaf 18.00 uur.
+                    In het GLOW Café, het GLOW-S Café en op diverse
+                    infopunten langs de route is gelegenheid voor een hapje en
+                    een drankje. Koop hier je GLOW souvenir!
+                    Het GLOW Café wordt uitgebaat door Van Nielen Events
+                    info@vannielenevents.nl
 				</p>
 				
 				
