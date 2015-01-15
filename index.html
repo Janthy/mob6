@@ -28,30 +28,50 @@
 				  center: new google.maps.LatLng(51.556574, 5.138129),
 				  mapTypeId: google.maps.MapTypeId.ROADMAP
 			}
+			
+			// Mijn eigen locatie laten zien ---------------------------------------------------------------------
+			 if (navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition(function(position){
+					var latitude = position.coords.latitude;
+					var longitude = position.coords.longitude;
+					var coords = new google.maps.LatLng(latitude, longitude);
+					var marker = new google.maps.Marker({
+								position: coords,
+								icon:'images/icon.png',
+								map: map,
+								title: "Uw huidige locatie!"
+						});
+					});
+			 }
 			 
 			map = new google.maps.Map(document.getElementById("googleMap"), mapOptions);
 			 
-			makeRequest('get_locations.php', function(data) {
+			makeRequest('http://www.janthymartina.nl/get_locations.php', function(data) {
 					 
 				var data = JSON.parse(data.responseText);
 				 
 				for (var i = 0; i < data.length; i++) {
 					displayLocation(data[i]);
+					fest = data[i];
+					console.log(fest);
+					// festival naam uit de array plaatsen in een list
+					$('#festlijst').append('<li><a href="#'+ fest.name +'" data-id="' + fest.name + '"><h3>' + fest.name + '</h3></a></li>');
 				}
+				//ul refreshen zodat de list verborgen word
+				$('#festlijst').listview('refresh');
 			});
+
+			
 		}
 
-	  
+
 		  <!-- functie initialize uitvoeren als de infesto pagina weergegeven word-->
 		  $(document).on('pageshow', '#infestomap', function (event) {
 			initialize();
 		  });
 	 
+		 <!-- google map markers toevoegen  -->
 		 function displayLocation(location) {
-			 
-
-		 
-		
 		
 			var position = new google.maps.LatLng(parseFloat(location.lat), parseFloat(location.lon));
 			var marker = new google.maps.Marker({
@@ -65,9 +85,10 @@
 			google.maps.event.addListener(marker, 'click', function() {
 				window.location.href = marker.url;
 			});
-		
+			
 		}
-	 
+		
+	 	<!-- server side php file aanspreken  -->
 		 function makeRequest(url, callback) {
 			var request;
 			if (window.XMLHttpRequest) {
@@ -113,8 +134,14 @@
 		<div class="headerstyle" data-role="header" style="overflow:hidden;">
         	<h1>Zoeken</h1>
         </div>
-
+		<!-- Zoek formulier gelinkt aan de json array -->
+        <form class="ui-filterable">
+    		<input id="autocomplete-input" data-type="search" placeholder="Zoek een festival...">
+        </form>
+        
+        <ul data-role="listview"  id="festlijst" data-filter="true" data-filter-reveal="true" data-input="#autocomplete-input" data-inset="true">
 		
+        </ul>
 		</section>
         
         <!-- infestomap pagina -->
@@ -207,7 +234,7 @@
 		</section>
 
 		<!-- -------------------------------------------------- info schermen------------------------------------------------------------- -->	
-		<!-- Info dialogs van de marker01 -->
+		<!-- Info dialog van de marker01 -->
 		
 		<div id="definitie van hiphop" data-role="dialog">
         		<div class="festivalheader" data-role="header">
@@ -218,22 +245,16 @@
 				
                 <iframe src="http://player.vimeo.com/video/41135183" width="100%" height="200" seamless></iframe>
 
-		 		<h2> GLOW CAFE </h2>
+		 		<h2> Definitie van HipHop </h2>
         			<p class="leftalign">
-                    Hét meeting point voor kunstenaars, publiek en pers.
-                    Geopend vanaf 18.00 uur.
-                    In het GLOW Café, het GLOW-S Café en op diverse
-                    infopunten langs de route is gelegenheid voor een hapje en
-                    een drankje. Koop hier je GLOW souvenir!
-                    Het GLOW Café wordt uitgebaat door Van Nielen Events
-                    info@vannielenevents.nl
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 				</p>
 				
 				
         		</div>
         	</div>
          
-         <!-- Info dialogs van de marker01 -->
+         <!-- Info dialog van de marker02 -->
 		
 		<div id="test" data-role="dialog">
         		<div class="festivalheader" data-role="header">
@@ -244,15 +265,9 @@
 				
                 <iframe src="http://player.vimeo.com/video/41135183" width="100%" height="200" seamless></iframe>
 
-		 		<h2> GLOW CAFE </h2>
+		 		<h2> test </h2>
         			<p class="leftalign">
-                    Hét meeting point voor kunstenaars, publiek en pers.
-                    Geopend vanaf 18.00 uur.
-                    In het GLOW Café, het GLOW-S Café en op diverse
-                    infopunten langs de route is gelegenheid voor een hapje en
-                    een drankje. Koop hier je GLOW souvenir!
-                    Het GLOW Café wordt uitgebaat door Van Nielen Events
-                    info@vannielenevents.nl
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 				</p>
 				
 				
