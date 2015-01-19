@@ -7,6 +7,7 @@
 
 <script src="js/jquery-1.11.1.min.js"></script>
 <script src="js/jquery.mobile-1.4.5.min.js"></script>
+<!--<script type="text/javascript" charset="utf-8" src="cordova.js"></script>-->
 
 
 <link rel="stylesheet" href="css/themes/infesto.css" />
@@ -17,12 +18,12 @@
 <!-- google map api -->
 <script src="https://maps.googleapis.com/maps/api/js"></script>
     
-	<!-- google map functie en eigenschappen  -->
+	
 	<script>
 		
- 
+ 		// googlemaps aanmaken, eigen locatie weergeven, gegevens uit de database halen.
 		function initialize() {
-		 
+		 	
 			var mapOptions = {
 				  zoom: 9,
 				  center: new google.maps.LatLng(51.556574, 5.138129),
@@ -46,32 +47,32 @@
 			 
 			map = new google.maps.Map(document.getElementById("googleMap"), mapOptions);
 			 
+			
 			makeRequest('http://www.janthymartina.nl/get_locations.php', function(data) {
-					 
+				
 				var data = JSON.parse(data.responseText);
 				 
 				for (var i = 0; i < data.length; i++) {
 					displayLocation(data[i]);
 					fest = data[i];
 					console.log(fest);
-					// festival naam uit de array plaatsen in een list
-					$('#festlijst').append('<li><a href="#'+ fest.name +'" data-id="' + fest.name + '"><h3>' + fest.name + '</h3></a></li>');
-				}
+					// festival naam van de array plaatsen in een list
+					$('#festlijst').append('<li><a href="#'+ fest.name +'" data-id="' + fest.name + '"><h3>' + fest.name + '</h3></a></li>');}
 				//ul refreshen zodat de list verborgen word
 				$('#festlijst').listview('refresh');
 			});
-
+			
+			
 			
 		}
 
-
-		  <!-- functie initialize uitvoeren als de infesto pagina weergegeven word-->
-		  $(document).on('pageshow', '#infestomap', function (event) {
+		//functie initialize uitvoeren als de infesto pagina weergegeven word
+		$(document).on('pageshow', '#infestomap', function (event) {
 			initialize();
 		  });
 	 
-		 <!-- google map markers toevoegen  -->
-		 function displayLocation(location) {
+	    //google map markers toevoegen
+		function displayLocation(location) {
 		
 			var position = new google.maps.LatLng(parseFloat(location.lat), parseFloat(location.lon));
 			var marker = new google.maps.Marker({
@@ -88,8 +89,8 @@
 			
 		}
 		
-	 	<!-- server side php file aanspreken  -->
-		 function makeRequest(url, callback) {
+		//server side php file aanspreken  
+		function makeRequest(url, callback) {
 			var request;
 			if (window.XMLHttpRequest) {
 				request = new XMLHttpRequest(); // IE7+, Firefox, Chrome, Opera, Safari
@@ -104,6 +105,43 @@
 			request.open("GET", url, true);
 			request.send();
 		 }
+		
+		// dit zorgt ervoor dat de achtergrond van een dialog venster transparant word
+		$(document).on('pagebeforeshow', 'div[data-role="dialog"]', function (e, ui) {
+			ui.prevPage.addClass("ui-dialog-background ");
+		});
+		
+		$(document).on('pagehide', 'div[data-role="dialog"]', function (e, ui) {
+			$(".ui-dialog-background ").removeClass("ui-dialog-background ");
+		});
+		
+		//notification test
+		// Wait for device API libraries to load
+    //
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    // device APIs are available
+    //
+    function onDeviceReady() {
+        // Empty
+    }
+
+    // process the promptation dialog result
+    function onPrompt(results) {
+        alert("You selected button number " + results.buttonIndex + " and entered " + results.input1);
+    }
+
+    // Show a custom prompt dialog
+    //
+    function showPrompt() {
+        navigator.notification.prompt(
+            'Please enter your name',  // message
+            onPrompt,                  // callback to invoke
+            'Registration',            // title
+            ['Ok','Exit'],             // buttonLabels
+            'Jane Doe'                 // defaultText
+        );
+    }
     </script>
 </head> 
 <body> 
@@ -112,13 +150,13 @@
 		<section data-role="page" id="start" >
 			<nav data-role="navbar">
 				<ul>
-					<li><a href="#zoeken"  data-icon="home">Zoeken</a></li>
+					<li><a href="#zoeken" onclick="showPrompt(); return false;" data-icon="home">Zoeken</a></li>
 					<li><a href="#infestomap"   data-icon="minus">Infesto</a></li>
 					<li><a href="#instellingen"  data-icon="alert">Instellingen</a></li>
 				</ul>
         </nav>
 		
-
+    
 		
 		</section>
         
@@ -126,9 +164,9 @@
 		<section data-role="page" id="zoeken" data-theme="a">
 			<nav data-role="navbar" style="border-bottom:5px solid #fdce5a;">
 				<ul>
-					<li><a href="#zoeken" style="background:#fdce5a; color: white; border-color:#fdce5a;" data-icon="search">Zoeken</a></li>
+					<li><a href="#zoeken" onclick="showPrompt(); return false;" style="background:#fdce5a; color: white; border-color:#fdce5a;" data-icon="search">Zoeken</a></li>
 					<li><a href="#infestomap" style="background:#00afda; color: white; border-color:#00afda;" data-icon="location">Infesto</a></li>
-					<li><a href="#instellingen" style="background:#7e7e7e; color: white; border-color:#7e7e7e;"  data-icon="gear">Instellingen</a></li>
+					<li><a href="#right-panel" style="background:#7e7e7e; color: white; border-color:#7e7e7e;"  data-icon="gear">Instellingen</a></li>
 				</ul>
         </nav>
 		<div class="headerstyle" data-role="header" style="overflow:hidden;">
@@ -148,90 +186,31 @@
 		<section data-role="page" id="infestomap" data-theme="a">
 			<nav data-role="navbar" style="border-bottom:5px solid #00afda;">
 				<ul>
-					<li><a href="#zoeken" style="background:#fdce5a; color: white; border-color:#fdce5a;" data-icon="search">Zoeken</a></li>
+					<li><a href="#zoeken" onclick="showPrompt(); return false;" style="background:#fdce5a; color: white; border-color:#fdce5a;" data-icon="search">Zoeken</a></li>
 					<li><a href="#infestomap" style="background:#00afda; color: white; border-color:#00afda;" data-icon="location">Infesto</a></li>
-					<li><a href="#instellingen" style="background:#7e7e7e; color: white; border-color:#7e7e7e;"  data-icon="gear">Instellingen</a></li>
+					<li><a href="#right-panel" style="background:#7e7e7e; color: white; border-color:#7e7e7e;"  data-icon="gear">Instellingen</a></li>
 				</ul>
         </nav>
-		<div id="googleMap"></div>	
-		
+		<div id="googleMap"></div>
+        <div data-role="panel" id="right-panel" data-display="overlay" data-position="right">
+            <ul data-role="listview" data-icon="false">
+                <li data-icon="delete"><a href="#" data-rel="close">Sluiten</a></li>
+                <li data-role="list-divider">Instellingen</li>
+                <li><form>
+                        <input type="checkbox" name="geolokatie" id="geolokatie"  data-iconpos="right">
+                        <label for="geolokatie">Eigen gelocatie toestaan.</label>
+                    </form>
+                 </li>
+                <li><form>
+                        <input type="checkbox" name="meldingen" id="meldingen" data-mini="true" data-iconpos="right">
+                        <label for="meldingen">Meldingen toestaan.</label>
+                    </form>
+                 </li>
+            </ul>
+        </div><!-- /panel -->	
 		</section>
         
-        <!-- instellingen pagina -->
-		<section data-role="page" id="instellingen" data-theme="a">
-			<nav data-role="navbar" style="border-bottom:5px solid #7e7e7e;">
-				<ul>
-					<li><a href="#zoeken" style="background:#fdce5a; color: white; border-color:#fdce5a;" data-icon="search">Zoeken</a></li>
-					<li><a href="#infestomap" style="background:#00afda; color: white; border-color:#00afda;" data-icon="location">Infesto</a></li>
-					<li><a href="#instellingen" style="background:#7e7e7e; color: white; border-color:#7e7e7e;"  data-icon="gear">Instellingen</a></li>
-				</ul>
-        </nav>
-		<div class="headerstyle" data-role="header" style="overflow:hidden;">
-        	<h1>Instellingen</h1>
-        </div>
-		<a href="#fbaccount" class="ui-btn">Facebook account</a>
-        <a href="#meldingen" class="ui-btn">Meldingen</a>
-        <a href="#provincie" class="ui-btn">Provincie</a>
-        
-		
-		</section>
-        
-        <!-- instellingen facebook account pagina -->
-		<section data-role="page" id="fbaccount" data-theme="a">
-			<nav data-role="navbar" style="border-bottom:5px solid #7e7e7e;">
-				<ul>
-					<li><a href="#zoeken" style="background:#fdce5a; color: white; border-color:#fdce5a;" data-icon="search">Zoeken</a></li>
-					<li><a href="#infestomap" style="background:#00afda; color: white; border-color:#00afda;" data-icon="location">Infesto</a></li>
-					<li><a href="#instellingen" style="background:#7e7e7e; color: white; border-color:#7e7e7e;"  data-icon="gear">Instellingen</a></li>
-				</ul>
-       		</nav>
-            <div class="headerstyle" data-role="header" style="overflow:hidden;">
-        		<h1>Facebook Account</h1>
-            	<a href="#instellingen" class="ui-btn ui-icon-carat-l ui-btn-icon-notext ui-corner-all">No text</a>
-       		</div>
-			
-		
-        
-		
-		</section>
-        
-        <!-- instellingen meldingen pagina -->
-		<section data-role="page" id="meldingen" data-theme="a">
-			<nav data-role="navbar" style="border-bottom:5px solid #7e7e7e;">
-				<ul>
-					<li><a href="#zoeken" style="background:#fdce5a; color: white; border-color:#fdce5a;" data-icon="search">Zoeken</a></li>
-					<li><a href="#infestomap" style="background:#00afda; color: white; border-color:#00afda;" data-icon="location">Infesto</a></li>
-					<li><a href="#instellingen" style="background:#7e7e7e; color: white; border-color:#7e7e7e;"  data-icon="gear">Instellingen</a></li>
-				</ul>
-        	</nav>
-            <div class="headerstyle" data-role="header" style="overflow:hidden;">
-        		<h1>Meldingen</h1>
-            	<a href="#instellingen" class="ui-btn ui-icon-carat-l ui-btn-icon-notext ui-corner-all">No text</a>
-        	</div>
-			
-		
-        
-		
-		</section>
-        
-        <!-- instellingen provincie pagina -->
-		<section data-role="page" id="provincie" data-theme="a">
-			<nav data-role="navbar" style="border-bottom:5px solid #7e7e7e;">
-				<ul>
-					<li><a href="#zoeken" style="background:#fdce5a; color: white; border-color:#fdce5a;" data-icon="search">Zoeken</a></li>
-					<li><a href="#infestomap" style="background:#00afda; color: white; border-color:#00afda;" data-icon="location">Infesto</a></li>
-					<li><a href="#instellingen" style="background:#7e7e7e; color: white; border-color:#7e7e7e;"  data-icon="gear">Instellingen</a></li>
-				</ul>
-            </nav>
-            <div class="headerstyle" data-role="header" style="overflow:hidden;">
-        		<h1>Provincie</h1>
-            	<a href="#instellingen" class="ui-btn ui-icon-carat-l ui-btn-icon-notext ui-corner-all">No text</a>
-        	</div>
-			
-		
-        
-		
-		</section>
+
 
 		<!-- -------------------------------------------------- info schermen------------------------------------------------------------- -->	
 		<!-- Info dialog van de marker01 -->
